@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `aqarsite` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `aqarsite`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: aqarsite
@@ -43,6 +45,7 @@ CREATE TABLE `advertisement` (
 
 LOCK TABLES `advertisement` WRITE;
 /*!40000 ALTER TABLE `advertisement` DISABLE KEYS */;
+INSERT INTO `advertisement` VALUES (1,NULL,'for sale',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `advertisement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,9 +58,9 @@ DROP TABLE IF EXISTS `useraccount`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `useraccount` (
   `ID` int(11) NOT NULL,
-  `username` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `userpassword` varchar(100) DEFAULT NULL,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `userpassword` varchar(100) NOT NULL,
   `image` blob,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -69,7 +72,7 @@ CREATE TABLE `useraccount` (
 
 LOCK TABLES `useraccount` WRITE;
 /*!40000 ALTER TABLE `useraccount` DISABLE KEYS */;
-INSERT INTO `useraccount` VALUES (1,'hassan',NULL,NULL,NULL),(2,'haitham','haitham@gmail.com','private',NULL);
+INSERT INTO `useraccount` VALUES (1,'hassan','','',NULL),(2,'haitham','haitham@gmail.com','private',NULL);
 /*!40000 ALTER TABLE `useraccount` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,4 +85,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 19:57:14
+-- Dump completed on 2017-12-01  1:15:26
