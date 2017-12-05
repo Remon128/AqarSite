@@ -21,6 +21,21 @@ USE `aqarsite`;
 -- Table structure for table `advertisement`
 --
 
+DROP TABLE IF EXISTS `useraccount`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `useraccount` (
+  `ID` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `userpassword` varchar(100) NOT NULL,
+  `image` blob,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
 DROP TABLE IF EXISTS `advertisement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -53,18 +68,6 @@ UNLOCK TABLES;
 -- Table structure for table `useraccount`
 --
 
-DROP TABLE IF EXISTS `useraccount`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `useraccount` (
-  `ID` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `userpassword` varchar(100) NOT NULL,
-  `image` blob,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `useraccount`
