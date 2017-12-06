@@ -46,10 +46,10 @@ public class DataBaseTester extends HttpServlet {
             emf = Persistence.createEntityManagerFactory("AqarSitePU");
         UseraccountJpaController accountCont = new UseraccountJpaController(emf);
         AdvertisementJpaController adCont = new AdvertisementJpaController(emf);
-        Useraccount account = new Useraccount(2);
-        account.setUsername("haitham");
-        account.setEmail("haitham@gmail.com");
-        account.setUserpassword("private");
+        Useraccount account = new Useraccount(3);
+        account.setUserName("mo5");
+        account.setEmail("mo5@gmail.com");
+        account.setUserPassword("private");
         try {
             accountCont.create(account);
         } catch (Exception ex) {

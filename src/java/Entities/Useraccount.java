@@ -8,6 +8,7 @@ package Entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -28,10 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Useraccount.findAll", query = "SELECT u FROM Useraccount u")
-    , @NamedQuery(name = "Useraccount.findById", query = "SELECT u FROM Useraccount u WHERE u.id = :id")
-    , @NamedQuery(name = "Useraccount.findByUsername", query = "SELECT u FROM Useraccount u WHERE u.username = :username")
-    , @NamedQuery(name = "Useraccount.findByEmail", query = "SELECT u FROM Useraccount u WHERE u.email = :email")
-    , @NamedQuery(name = "Useraccount.findByUserpassword", query = "SELECT u FROM Useraccount u WHERE u.userpassword = :userpassword")})
+    , @NamedQuery(name = "Useraccount.findById", query = "SELECT u FROM Useraccount u WHERE u.id = :id")})
 public class Useraccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,23 +38,50 @@ public class Useraccount implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "username")
-    private String username;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "userName")
+    private String userName;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "userPassword")
+    private String userPassword;
+    @Lob
+    @Column(name = "fullName")
+    private String fullName;
+    @Basic(optional = false)
+    @Lob
     @Column(name = "email")
     private String email;
-    @Column(name = "userpassword")
-    private String userpassword;
     @Lob
-    @Column(name = "image")
-    private byte[] image;
-    @OneToMany(mappedBy = "userID")
+    @Column(name = "picture")
+    private byte[] picture;
+    @Lob
+    @Column(name = "phone")
+    private String phone;
+    @OneToMany(mappedBy = "accountID")
+    private Collection<Notification> notificationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
+    private Collection<Adcomment> adcommentCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "useraccount")
+    private Preference preference;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
     private Collection<Advertisement> advertisementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "useraccount")
+    private Collection<Rating> ratingCollection;
 
     public Useraccount() {
     }
 
     public Useraccount(Integer id) {
         this.id = id;
+    }
+
+    public Useraccount(Integer id, String userName, String userPassword, String email) {
+        this.id = id;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -66,12 +92,28 @@ public class Useraccount implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -82,20 +124,46 @@ public class Useraccount implements Serializable {
         this.email = email;
     }
 
-    public String getUserpassword() {
-        return userpassword;
+    public byte[] getPicture() {
+        return picture;
     }
 
-    public void setUserpassword(String userpassword) {
-        this.userpassword = userpassword;
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @XmlTransient
+    public Collection<Notification> getNotificationCollection() {
+        return notificationCollection;
+    }
+
+    public void setNotificationCollection(Collection<Notification> notificationCollection) {
+        this.notificationCollection = notificationCollection;
+    }
+
+    @XmlTransient
+    public Collection<Adcomment> getAdcommentCollection() {
+        return adcommentCollection;
+    }
+
+    public void setAdcommentCollection(Collection<Adcomment> adcommentCollection) {
+        this.adcommentCollection = adcommentCollection;
+    }
+
+    public Preference getPreference() {
+        return preference;
+    }
+
+    public void setPreference(Preference preference) {
+        this.preference = preference;
     }
 
     @XmlTransient
@@ -105,6 +173,15 @@ public class Useraccount implements Serializable {
 
     public void setAdvertisementCollection(Collection<Advertisement> advertisementCollection) {
         this.advertisementCollection = advertisementCollection;
+    }
+
+    @XmlTransient
+    public Collection<Rating> getRatingCollection() {
+        return ratingCollection;
+    }
+
+    public void setRatingCollection(Collection<Rating> ratingCollection) {
+        this.ratingCollection = ratingCollection;
     }
 
     @Override

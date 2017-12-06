@@ -6,7 +6,9 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,8 +17,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Advertisement.findById", query = "SELECT a FROM Advertisement a WHERE a.id = :id")
     , @NamedQuery(name = "Advertisement.findBySize", query = "SELECT a FROM Advertisement a WHERE a.size = :size")
     , @NamedQuery(name = "Advertisement.findByFloor", query = "SELECT a FROM Advertisement a WHERE a.floor = :floor")
-    , @NamedQuery(name = "Advertisement.findByPropstatus", query = "SELECT a FROM Advertisement a WHERE a.propstatus = :propstatus")
-    , @NamedQuery(name = "Advertisement.findByProptype", query = "SELECT a FROM Advertisement a WHERE a.proptype = :proptype")})
+    , @NamedQuery(name = "Advertisement.findByAdType", query = "SELECT a FROM Advertisement a WHERE a.adType = :adType")})
 public class Advertisement implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,29 +42,47 @@ public class Advertisement implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "Size")
+    @Column(name = "size")
     private Integer size;
+    @Basic(optional = false)
     @Lob
-    @Column(name = "description")
+    @Column(name = "title")
+    private String title;
+    @Lob
+    @Column(name = "Description")
     private String description;
     @Column(name = "floor")
     private Integer floor;
-    @Column(name = "propstatus")
-    private String propstatus;
-    @Column(name = "proptype")
-    private String proptype;
     @Lob
-    @Column(name = "image")
-    private byte[] image;
-    @JoinColumn(name = "userID", referencedColumnName = "ID")
-    @ManyToOne
-    private Useraccount userID;
+    @Column(name = "propStatus")
+    private String propStatus;
+    @Lob
+    @Column(name = "propType")
+    private String propType;
+    @Column(name = "adType")
+    private Integer adType;
+    @OneToMany(mappedBy = "adID")
+    private Collection<Notification> notificationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adID")
+    private Collection<Adphoto> adphotoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adID")
+    private Collection<Adcomment> adcommentCollection;
+    @JoinColumn(name = "accountID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Useraccount accountID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "advertisement")
+    private Collection<Rating> ratingCollection;
 
     public Advertisement() {
     }
 
     public Advertisement(Integer id) {
         this.id = id;
+    }
+
+    public Advertisement(Integer id, String title) {
+        this.id = id;
+        this.title = title;
     }
 
     public Integer getId() {
@@ -80,6 +101,14 @@ public class Advertisement implements Serializable {
         this.size = size;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -96,36 +125,72 @@ public class Advertisement implements Serializable {
         this.floor = floor;
     }
 
-    public String getPropstatus() {
-        return propstatus;
+    public String getPropStatus() {
+        return propStatus;
     }
 
-    public void setPropstatus(String propstatus) {
-        this.propstatus = propstatus;
+    public void setPropStatus(String propStatus) {
+        this.propStatus = propStatus;
     }
 
-    public String getProptype() {
-        return proptype;
+    public String getPropType() {
+        return propType;
     }
 
-    public void setProptype(String proptype) {
-        this.proptype = proptype;
+    public void setPropType(String propType) {
+        this.propType = propType;
     }
 
-    public byte[] getImage() {
-        return image;
+    public Integer getAdType() {
+        return adType;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setAdType(Integer adType) {
+        this.adType = adType;
     }
 
-    public Useraccount getUserID() {
-        return userID;
+    @XmlTransient
+    public Collection<Notification> getNotificationCollection() {
+        return notificationCollection;
     }
 
-    public void setUserID(Useraccount userID) {
-        this.userID = userID;
+    public void setNotificationCollection(Collection<Notification> notificationCollection) {
+        this.notificationCollection = notificationCollection;
+    }
+
+    @XmlTransient
+    public Collection<Adphoto> getAdphotoCollection() {
+        return adphotoCollection;
+    }
+
+    public void setAdphotoCollection(Collection<Adphoto> adphotoCollection) {
+        this.adphotoCollection = adphotoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Adcomment> getAdcommentCollection() {
+        return adcommentCollection;
+    }
+
+    public void setAdcommentCollection(Collection<Adcomment> adcommentCollection) {
+        this.adcommentCollection = adcommentCollection;
+    }
+
+    public Useraccount getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(Useraccount accountID) {
+        this.accountID = accountID;
+    }
+
+    @XmlTransient
+    public Collection<Rating> getRatingCollection() {
+        return ratingCollection;
+    }
+
+    public void setRatingCollection(Collection<Rating> ratingCollection) {
+        this.ratingCollection = ratingCollection;
     }
 
     @Override
