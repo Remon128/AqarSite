@@ -29,11 +29,10 @@
                 List<Advertisement> ads = adController.findAdvertisementEntities();
                 for (Advertisement ad : ads) {
             %>
-        <form action="Advertisement.jsp">
+        <div>
             <%=ad.getTitle()%><br>
-            <input type="text" name="id" value="<%=ad.getId()%>"/>
-            <input type="submit" value="view Advertisement"/>
-        </form>
+            <a href="Advertisement.jsp?id=<%=ad.getId()%>">View Details</a>
+        </div>
         <%
             }
         %>

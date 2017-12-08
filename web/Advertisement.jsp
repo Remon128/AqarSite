@@ -43,10 +43,7 @@
         <h1>Size: <%=ad.getSize()%></h1>
         <h1>Description:</h1>
         <h1><%=ad.getDescription()%></h1>
-        <div align=right>
-            Rating:<br>
-            <%=rating%>
-        </div>
+        <h1>Rating:<%=rating%></h1>
 
     </body>
 </html>
