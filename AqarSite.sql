@@ -1,5 +1,4 @@
 use aqarsite;
-
 create table UserAccount (
 	ID int primary key,
     userName text not null,
@@ -23,7 +22,6 @@ create table Advertisement(
     foreign key(accountID) references UserAccount(ID)
 );
 
-<<<<<<< HEAD
 create table AdPhoto(
 	ID int primary key,
     adID int not null,
@@ -63,7 +61,6 @@ CREATE TABLE `advertisement` (
   CONSTRAINT `advertisement_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `useraccount` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
->>>>>>> 74e65a524c47fa89172b7513a01fe1b117edd90f
 
 create table AdComment(
 	ID int primary key,
@@ -92,7 +89,6 @@ create table Preference(
     foreign key(accountID) references UserAccount(ID)
 );
 
-<<<<<<< HEAD
 create table Notification(
 	ID  int primary key,
     accountID int not null,
@@ -123,4 +119,3 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-12-01  1:15:26
->>>>>>> 74e65a524c47fa89172b7513a01fe1b117edd90f
