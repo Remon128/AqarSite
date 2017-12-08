@@ -28,21 +28,9 @@ create table AdPhoto(
     photo blob not null,
     foreign key(adID) references Advertisement(ID)
 );
-=======
-DROP TABLE IF EXISTS `useraccount`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `useraccount` (
-  `ID` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `userpassword` varchar(100) NOT NULL,
-  `image` blob,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
+<<<<<<< HEAD
 
 DROP TABLE IF EXISTS `advertisement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -62,6 +50,8 @@ CREATE TABLE `advertisement` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+=======
+>>>>>>> 7e26d45beaeb7c5871617df4d6be9d8db63ba4e8
 create table AdComment(
 	ID int primary key,
     accountID int not null,
@@ -89,6 +79,10 @@ create table Preference(
     foreign key(accountID) references UserAccount(ID)
 );
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7e26d45beaeb7c5871617df4d6be9d8db63ba4e8
 create table Notification(
 	ID  int primary key,
     accountID int not null,
@@ -96,6 +90,7 @@ create table Notification(
     content text not null,
     foreign key(adID) references Advertisement(ID),
     foreign key(accountID) references UserAccount(ID)
+<<<<<<< HEAD
 );
 =======
 
@@ -119,3 +114,6 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-12-01  1:15:26
+=======
+);
+>>>>>>> 7e26d45beaeb7c5871617df4d6be9d8db63ba4e8
