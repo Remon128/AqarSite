@@ -14,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Advertisements</title>
     </head>
     <body>
         <%-- 
@@ -23,12 +23,18 @@
         <header> user data</header>
         <div id="UserData">or user header will be added here</div>
         <h1> Advertisements <input type="button" value="new Advertisement" onclick="CreateAddRedirect()"/></h1> 
+            <%
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarSitePU");
+                AdvertisementJpaController adController = new AdvertisementJpaController(emf);
+                List<Advertisement> ads = adController.findAdvertisementEntities();
+                for (Advertisement ad : ads) {
+            %>
+        <form action="Advertisement.jsp">
+            <%=ad.getTitle()%><br>
+            <input type="text" name="id" value="<%=ad.getId()%>"/>
+            <input type="submit" value="view Advertisement"/>
+        </form>
         <%
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarSitePU");
-            AdvertisementJpaController adController = new AdvertisementJpaController(emf);
-            List<Advertisement> ads = adController.findAdvertisementEntities();
-            for (Advertisement ad : ads) {
-                out.print(ad);
             }
         %>
     </body>
