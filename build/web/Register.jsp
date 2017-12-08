@@ -4,6 +4,8 @@
     Author     : MrHacker
 --%>
 
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -46,6 +48,63 @@
 
     </head>
     <body>
+
+        <%
+            Cookie myCurrentSession = null;
+
+            boolean sessionsManagerNotExist = application.getAttribute("sessionsManager") == null;
+            String sessionId = "";
+            int numOfSessions = 0;
+
+            Cookie[] cookies = request.getCookies();
+
+            for (Cookie c : cookies) {
+                if (c.getName().equals("MyCurrentSession")) {
+                    myCurrentSession = c;
+                }
+            }
+
+            boolean MyCurrentSessionExist = myCurrentSession != null;
+            //User user = new User("", "", "", "");
+            if (MyCurrentSessionExist) {
+                sessionId = myCurrentSession.getValue();
+            }
+
+            String username = sessionId;
+            //String email = user.getEmail();
+            
+            if (MyCurrentSessionExist) {//MyCurrentSession exist
+                if (!sessionsManagerNotExist) {
+
+                    Map<String, HttpSession> sessionsManager = (HashMap<String, HttpSession>) application
+                            .getAttribute("sessionsManager");
+
+                    if (sessionsManager.containsKey(sessionId)) {
+                        HttpSession newSession = (HttpSession) sessionsManager.get(sessionId);
+
+                        out.print("<h1>sessId = " + sessionId + "</h1><br>");
+
+            //            Database.retriveFromDB(user, sessionId);
+
+               //         username = user.getUsername();
+              //          email = user.getEmail();
+                        numOfSessions = sessionsManager.size();
+
+                    } else {
+                        application.removeAttribute("MyCurrentSession");
+                    }
+                } else {
+                    application.removeAttribute("MyCurrentSession");
+                }
+            } else {//MyCurrentSession doesn't exist
+                if (sessionsManagerNotExist) {
+                    Map<String, HttpSession> sessionsManager = new HashMap<String, HttpSession>();
+                    application.setAttribute("sessionsManager", sessionsManager);
+                }
+
+                //out.print(Forms.inputForm());
+            }
+        %>
 
         <div class="container">
 
