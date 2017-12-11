@@ -55,11 +55,11 @@ public class Useraccount implements Serializable {
     private String email;
     @Lob
     @Column(name = "picture")
-    private byte[] picture;
+    private String picture;
     @Lob
     @Column(name = "phone")
     private String phone;
-    @OneToMany(mappedBy = "accountID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
     private Collection<Notification> notificationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountID")
     private Collection<Adcomment> adcommentCollection;
@@ -124,11 +124,11 @@ public class Useraccount implements Serializable {
         this.email = email;
     }
 
-    public byte[] getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 

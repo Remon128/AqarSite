@@ -168,6 +168,14 @@ public class UseraccountJpaController implements Serializable {
                 }
                 illegalOrphanMessages.add("You must retain Preference " + preferenceOld + " since its useraccount field is not nullable.");
             }
+            for (Notification notificationCollectionOldNotification : notificationCollectionOld) {
+                if (!notificationCollectionNew.contains(notificationCollectionOldNotification)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Notification " + notificationCollectionOldNotification + " since its accountID field is not nullable.");
+                }
+            }
             for (Adcomment adcommentCollectionOldAdcomment : adcommentCollectionOld) {
                 if (!adcommentCollectionNew.contains(adcommentCollectionOldAdcomment)) {
                     if (illegalOrphanMessages == null) {
@@ -236,12 +244,6 @@ public class UseraccountJpaController implements Serializable {
                 }
                 preferenceNew.setUseraccount(useraccount);
                 preferenceNew = em.merge(preferenceNew);
-            }
-            for (Notification notificationCollectionOldNotification : notificationCollectionOld) {
-                if (!notificationCollectionNew.contains(notificationCollectionOldNotification)) {
-                    notificationCollectionOldNotification.setAccountID(null);
-                    notificationCollectionOldNotification = em.merge(notificationCollectionOldNotification);
-                }
             }
             for (Notification notificationCollectionNewNotification : notificationCollectionNew) {
                 if (!notificationCollectionOld.contains(notificationCollectionNewNotification)) {
@@ -324,6 +326,13 @@ public class UseraccountJpaController implements Serializable {
                 }
                 illegalOrphanMessages.add("This Useraccount (" + useraccount + ") cannot be destroyed since the Preference " + preferenceOrphanCheck + " in its preference field has a non-nullable useraccount field.");
             }
+            Collection<Notification> notificationCollectionOrphanCheck = useraccount.getNotificationCollection();
+            for (Notification notificationCollectionOrphanCheckNotification : notificationCollectionOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Useraccount (" + useraccount + ") cannot be destroyed since the Notification " + notificationCollectionOrphanCheckNotification + " in its notificationCollection field has a non-nullable accountID field.");
+            }
             Collection<Adcomment> adcommentCollectionOrphanCheck = useraccount.getAdcommentCollection();
             for (Adcomment adcommentCollectionOrphanCheckAdcomment : adcommentCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
@@ -347,11 +356,6 @@ public class UseraccountJpaController implements Serializable {
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            Collection<Notification> notificationCollection = useraccount.getNotificationCollection();
-            for (Notification notificationCollectionNotification : notificationCollection) {
-                notificationCollectionNotification.setAccountID(null);
-                notificationCollectionNotification = em.merge(notificationCollectionNotification);
             }
             em.remove(useraccount);
             em.getTransaction().commit();

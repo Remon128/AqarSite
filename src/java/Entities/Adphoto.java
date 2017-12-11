@@ -38,7 +38,7 @@ public class Adphoto implements Serializable {
     @Basic(optional = false)
     @Lob
     @Column(name = "photo")
-    private byte[] photo;
+    private String photo;
     @JoinColumn(name = "adID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Advertisement adID;
@@ -50,7 +50,7 @@ public class Adphoto implements Serializable {
         this.id = id;
     }
 
-    public Adphoto(Integer id, byte[] photo) {
+    public Adphoto(Integer id, String photo) {
         this.id = id;
         this.photo = photo;
     }
@@ -63,11 +63,11 @@ public class Adphoto implements Serializable {
         this.id = id;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

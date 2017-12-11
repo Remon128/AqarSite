@@ -24,7 +24,7 @@
         <div id="UserData">or user header will be added here</div>
         <h1> Advertisements <input type="button" value="new Advertisement" onclick="CreateAddRedirect()"/></h1> 
             <%
-                EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarSitePU");
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarTestPU");
                 AdvertisementJpaController adController = new AdvertisementJpaController(emf);
                 List<Advertisement> ads = adController.findAdvertisementEntities();
                 for (Advertisement ad : ads) {

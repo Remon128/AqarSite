@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="AqarSite" default="default" basedir=".">
-    <description>Builds, tests, and runs the project AqarSite.</description>
+<project name="AqarTest" default="default" basedir=".">
+    <description>Builds, tests, and runs the project AqarTest.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

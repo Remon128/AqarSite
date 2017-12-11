@@ -13,7 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarSitePU");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarTestPU");
     AdvertisementJpaController adController = new AdvertisementJpaController(emf);
     Advertisement ad = adController.findAdvertisement(Integer.parseInt(request.getParameter("id")));
     if (ad == null) {

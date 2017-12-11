@@ -35,6 +35,7 @@ public class Notification implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Basic(optional = false)
     @Lob
     @Column(name = "content")
     private String content;
@@ -42,7 +43,7 @@ public class Notification implements Serializable {
     @ManyToOne
     private Advertisement adID;
     @JoinColumn(name = "accountID", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Useraccount accountID;
 
     public Notification() {
@@ -50,6 +51,11 @@ public class Notification implements Serializable {
 
     public Notification(Integer id) {
         this.id = id;
+    }
+
+    public Notification(Integer id, String content) {
+        this.id = id;
+        this.content = content;
     }
 
     public Integer getId() {

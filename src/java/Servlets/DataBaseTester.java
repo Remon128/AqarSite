@@ -42,8 +42,9 @@ public class DataBaseTester extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        if(emf == null)
-            emf = Persistence.createEntityManagerFactory("AqarSitePU");
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory("AqarTestPU");
+        }
         UseraccountJpaController accountCont = new UseraccountJpaController(emf);
         AdvertisementJpaController adCont = new AdvertisementJpaController(emf);
         Useraccount account = new Useraccount(3);
@@ -62,11 +63,11 @@ public class DataBaseTester extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DataBaseTester</title>");            
+            out.println("<title>Servlet DataBaseTester</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>users are" + useraccounts+ "</h1>");
-            out.println("<h1>ads are" + ads+ "</h1>");
+            out.println("<h1>users are" + useraccounts + "</h1>");
+            out.println("<h1>ads are" + ads + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -39,8 +39,8 @@ public class RatingJpaController implements Serializable {
         if (rating.getRatingPK() == null) {
             rating.setRatingPK(new RatingPK());
         }
-        rating.getRatingPK().setAdID(rating.getAdvertisement().getId());
         rating.getRatingPK().setAccountID(rating.getUseraccount().getId());
+        rating.getRatingPK().setAdID(rating.getAdvertisement().getId());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -78,8 +78,8 @@ public class RatingJpaController implements Serializable {
     }
 
     public void edit(Rating rating) throws NonexistentEntityException, Exception {
-        rating.getRatingPK().setAdID(rating.getAdvertisement().getId());
         rating.getRatingPK().setAccountID(rating.getUseraccount().getId());
+        rating.getRatingPK().setAdID(rating.getAdvertisement().getId());
         EntityManager em = null;
         try {
             em = getEntityManager();
