@@ -41,7 +41,6 @@ public class UseraccountJpaController implements Serializable {
         emf = Persistence.createEntityManagerFactory("AqarTestPU");
     }
 
-    @Resource
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -419,5 +418,4 @@ public class UseraccountJpaController implements Serializable {
             em.close();
         }
     }
-
 }

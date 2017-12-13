@@ -205,5 +205,4 @@ public class PreferenceJpaController implements Serializable {
             em.close();
         }
     }
-
 }

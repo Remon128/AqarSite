@@ -213,5 +213,4 @@ public class RatingJpaController implements Serializable {
             em.close();
         }
     }
-
 }
