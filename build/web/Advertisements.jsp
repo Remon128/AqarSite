@@ -13,28 +13,34 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <title>Advertisements</title>
     </head>
     <body>
         <%-- 
             print user details upper
         --%>
-        <header> user data</header>
-        <div id="UserData">or user header will be added here</div>
-        <h1> Advertisements <input type="button" value="new Advertisement" onclick="CreateAddRedirect()"/></h1> 
+        <div class="container">
+            <div class="row">
+                <h1 class="col-lg-10">Advertisements</h1>
+                <h1 class="col-lg-2"><a class="btn btn-primary" href="addAdvertisement.jsp">Add advertisement</a></h1>
+            </div>
+            <div class="list-group">
             <%
                 EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarTestPU");
                 AdvertisementJpaController adController = new AdvertisementJpaController(emf);
                 List<Advertisement> ads = adController.findAdvertisementEntities();
                 for (Advertisement ad : ads) {
             %>
-        <div>
-            <%=ad.getTitle()%><br>
-            <a href="Advertisement.jsp?id=<%=ad.getId()%>">View Details</a>
+            <a href="Advertisement.jsp?id=<%=ad.getId()%>" class="list-group-item"><%=ad.getTitle()%></a>
+            <%
+                }
+            %>
+            </div>
         </div>
-        <%
-            }
-        %>
     </body>
 </html>
