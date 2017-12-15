@@ -42,18 +42,18 @@ public class AddAdvertisement extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
-//        if (session == null) {
-//            response.sendRedirect("Register.jsp");
-//        } else {
-//            if (session.getAttribute("userId") == null) {
-//                response.sendRedirect("Register.jsp");
-//            } else {
-//                int ID = (Integer) session.getAttribute("userId");
+        if (session == null) {
+            response.sendRedirect("Register.jsp");
+        } else {
+            if (session.getAttribute("userId") == null) {
+                response.sendRedirect("Register.jsp");
+            } else {
+                int ID = (Integer) session.getAttribute("userId");
                 EntityManagerFactory emf = Persistence.createEntityManagerFactory("AqarTestPU");
                 AdvertisementJpaController adController = new AdvertisementJpaController(emf);
                 UseraccountJpaController userController = new UseraccountJpaController(emf);
                 Advertisement ad = new Advertisement();
-                Useraccount user = userController.findUseraccount(1);
+                Useraccount user = userController.findUseraccount(ID);
                 ad.setAccountID(user);
                 ad.setTitle(request.getParameter("title"));
                 ad.setAdType(Integer.parseInt(request.getParameter("adType")));
@@ -68,8 +68,8 @@ public class AddAdvertisement extends HttpServlet {
                 } catch (Exception ex) {
                     Logger.getLogger(AddAdvertisement.class.getName()).log(Level.SEVERE, null, ex);
                 }
-//            }
-//        }
+            }
+        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

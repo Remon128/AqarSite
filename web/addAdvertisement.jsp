@@ -19,7 +19,7 @@
         <%
             session = request.getSession(false);
             if (session.getAttribute("userId") == null) {
-                //response.sendRedirect("Register.jsp");
+                response.sendRedirect("Register.jsp");
             }
         %>
         <div class="container">

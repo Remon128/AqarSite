@@ -1,7 +1,7 @@
 create database aqarsite;
 use aqarsite;
 create table UserAccount (
-	ID int primary key,
+	ID int primary key auto_increment,
     userName text not null,
     userPassword text not null,
     fullName text,
@@ -11,7 +11,7 @@ create table UserAccount (
 );
 
 create table Advertisement(
-	ID int primary key,
+	ID int primary key auto_increment,
     size int,
     title text not null,
     Description text,
@@ -20,18 +20,19 @@ create table Advertisement(
     propType text,
     adType int,
     accountID int not null,
+    suspended bool default false,
     foreign key(accountID) references UserAccount(ID)
 );
 
 create table AdPhoto(
-	ID int primary key,
+	ID int primary key auto_increment,
     adID int not null,
     photo text not null,
     foreign key(adID) references Advertisement(ID)
 );
 
 create table AdComment(
-	ID int primary key,
+	ID int primary key auto_increment,
     accountID int not null,
     adID int not null,
     AdComment text not null,
@@ -58,7 +59,7 @@ create table Preference(
 );
 
 create table Notification(
-	ID  int primary key,
+	ID  int primary key  auto_increment,
     accountID int not null,
     adID int,
     content text not null,
